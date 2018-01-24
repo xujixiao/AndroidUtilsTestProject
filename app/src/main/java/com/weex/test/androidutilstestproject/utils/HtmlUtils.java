@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.apkfuns.logutils.LogUtils;
 
 import org.jsoup.Jsoup;
+import org.jsoup.examples.ListLinks;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -20,11 +21,22 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.reactivex.internal.queue.MpscLinkedQueue;
 
+/**
+ * 方法都需要在子线程中运行比较耗时
+ */
 public class HtmlUtils {
     public static Document doc;
 
-    public static String Inputstr2Str_byteArr(InputStream in, String encode) {
+    /**
+     * 输入流转换成字符串
+     *
+     * @param in
+     * @param encode
+     * @return
+     */
+    public static String InputStr2StrByteArr(InputStream in, String encode) {
         StringBuffer sb = new StringBuffer();
         byte[] b = new byte[1024];
         int len = 0;
@@ -44,6 +56,12 @@ public class HtmlUtils {
 
     }
 
+    /**
+     * 获取整个html页面的内容
+     *
+     * @param urlString
+     * @return
+     */
     public static String getHtmlString(String urlString) {
         Map<String, String> contentMap = new HashMap<>();
         try {
@@ -59,7 +77,7 @@ public class HtmlUtils {
             if (TextUtils.isEmpty(charSet)) {
                 charSet = "utf-8";
             }
-            String urlContent = Inputstr2Str_byteArr(instr, charSet);
+            String urlContent = InputStr2StrByteArr(instr, charSet);
             LogUtils.d("整个html页面内容----" + urlContent);
             return urlContent;
         } catch (Exception e) {
@@ -68,6 +86,13 @@ public class HtmlUtils {
         }
     }
 
+    /**
+     * 获取html中的关键信息存入map集合中
+     *
+     * @param urlString
+     * @param urlContent
+     * @return
+     */
     public static Map<String, String> parseHtmlString(String urlString, String urlContent) {
         Map<String, String> contentMap = new HashMap<>();
         Document document = null;
@@ -160,4 +185,99 @@ public class HtmlUtils {
         else
             return line.substring(x + 8);
     }
+
+
+    public static String getHtmlTitle(String url) {
+        try {
+            // Connect to the web site
+            Document document = Jsoup.connect(url).get();
+            // Get the html document title
+            return document.title();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取描述信息
+     *
+     * @param url
+     * @return
+     */
+    public static String getHtmlDesc(String url) {
+        try {
+            // Connect to the web site
+            Document document = Jsoup.connect(url).get();
+            // Using Elements to get the Meta data
+            Elements description = document
+                    .select("meta[name=description]");
+            // Locate the content attribute
+            return description.attr("content");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static HashMap<String, String> getHtmlInfo(String url) {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            Document doc = Jsoup.connect(url).get();
+            Elements links = doc.select("a[href]");
+            Elements media = doc.select("[src]");
+            Elements imports = doc.select("link[href]");
+            int count = 0;
+            for (Element src : media) {
+                if (src.tagName().equals("img"))
+//                    System.out.printf(" * %s: <%s> %sx%s (%s)",
+//                            src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
+//                            trim(src.attr("alt"), 20));
+                    if (!TextUtils.isEmpty(src.tagName())) {
+                        map.put(src.tagName(), src.attr("abs:src"));
+                    } else {
+                        map.put("图片" + count, src.attr("abs:src"));
+                        count++;
+                    }
+            }
+            // 查找所有img标签
+            Elements imgs = doc.getElementsByTag("img");
+            System.out.println("共检测到下列图片URL：");
+            System.out.println("开始下载");
+            // 遍历img标签并获得src的属性
+            for (Element element : imgs) {
+                //获取每个img标签URL "abs:"表示绝对路径
+                String imgSrc = element.attr("abs:src");
+                // 打印URL
+                map.put("图片" + count, imgSrc);
+                count++;
+            }
+            for (Element link : imports) {
+                if (!TextUtils.isEmpty(link.tagName())) {
+                    map.put(link.tagName(), link.attr("abs:href"));
+                }else{
+                    map.put("imports" + count, link.attr("abs:href"));
+                    count++;
+
+                }
+//                System.out.printf(" * %s <%s> (%s)", link.tagName(), link.attr("abs:href"), link.attr("rel"));
+            }
+
+            System.out.printf("\nLinks: (%d)", links.size());
+            for (Element link : links) {
+//                System.out.printf(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
+                if (!TextUtils.isEmpty(link.text())) {
+                    map.put(link.text(), link.attr("abs:href"));
+                }else{
+                    map.put("links" + count, link.attr("abs:href"));
+                    count++;
+                }
+            }
+            LogUtils.d(map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

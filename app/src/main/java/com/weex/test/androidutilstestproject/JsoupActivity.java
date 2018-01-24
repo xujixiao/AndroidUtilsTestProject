@@ -1,20 +1,16 @@
 package com.weex.test.androidutilstestproject;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.apkfuns.logutils.LogUtils;
-import com.base.lib.base.BaseActivity;
 import com.base.lib.base.SActivity;
 import com.weex.test.androidutilstestproject.constants.PathConstants;
 import com.weex.test.androidutilstestproject.databinding.ActJsoupParseExampleLayoutBinding;
 import com.weex.test.androidutilstestproject.presenter.TestPresenter;
 import com.weex.test.androidutilstestproject.utils.HtmlUtils;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -50,9 +46,15 @@ public class JsoupActivity extends SActivity<TestPresenter, ActJsoupParseExample
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String urlcontent = HtmlUtils.getHtmlString(mBinding.etUrl.getText().toString());
-                        map = HtmlUtils.parseHtmlString(mBinding.etUrl.getText().toString(), urlcontent);
+                        String urlString = mBinding.etUrl.getText().toString();
+                        String urlcontent = HtmlUtils.getHtmlString(urlString);
+                        map = HtmlUtils.parseHtmlString(urlString, urlcontent);
                         LogUtils.d(map);
+
+                        String desc = HtmlUtils.getHtmlDesc(urlString);
+                        LogUtils.d("描述文本：" + desc + "----title----" + HtmlUtils.getHtmlTitle(urlString));
+                        HtmlUtils.getHtmlInfo(urlString);
+
                     }
                 }).start();
             }
