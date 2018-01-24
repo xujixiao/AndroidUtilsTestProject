@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        /*Aroute配置*/
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
     }
     signingConfigs {
         // your debug keystore
@@ -61,7 +68,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'com.test:mylibrary:1.0.5'
-    //    compile (name:'baselibrary-1.0.3',ext:'aar')
+    compile 'com.test:mylibrary:1.0.8'
     compile 'com.xjxtools:baselibrary:1.0.4'
+    compile 'org.jsoup:jsoup:1.9.2'
+    compile 'com.apkfuns.logutils:library:1.5.1.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+    compile group:'com.googlecode.plist', name:'dd-plist', version:'1.20'
 }

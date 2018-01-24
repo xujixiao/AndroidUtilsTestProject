@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.base.lib.base.BaseListActivity;
 import com.base.lib.base.adapter.IHolderType;
 import com.base.lib.databinding.CommonListLayoutBinding;
+import com.base.lib.utils.ArouterUtils;
+import com.weex.test.androidutilstestproject.constants.PathConstants;
 import com.weex.test.androidutilstestproject.databinding.ActivityMainBinding;
 import com.weex.test.androidutilstestproject.entity.TestMainEntity;
 import com.weex.test.androidutilstestproject.presenter.TestPresenter;
@@ -23,7 +25,9 @@ public class MainActivity extends BaseListActivity<TestPresenter, CommonListLayo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         for (int i = 0; i < 20; i++) {
-            mList.add(new TestMainEntity());
+            TestMainEntity e = new TestMainEntity();
+            e.text = "xujixiao" + i;
+            mList.add(e);
         }
         mAdapter.refreshData(mList);
 
@@ -42,6 +46,16 @@ public class MainActivity extends BaseListActivity<TestPresenter, CommonListLayo
     @Override
     public void loadMoreData() {
 
+    }
+
+    @Override
+    public void callBack(IHolderType entity, ViewDataBinding binding, int position) {
+        super.callBack(entity, binding, position);
+        if (position == 0) {
+            ArouterUtils.go(PathConstants.JsoupActivity);
+        } else if (position == 1) {
+            ArouterUtils.go(PathConstants.EmojiActivity);
+        }
     }
 
     @Override
