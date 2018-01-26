@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject;
+package com.xjxdemo.tool.test;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

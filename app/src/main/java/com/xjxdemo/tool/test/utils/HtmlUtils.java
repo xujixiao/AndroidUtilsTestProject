@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject.utils;
+package com.xjxdemo.tool.test.utils;
 
 import android.text.TextUtils;
 
@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.apkfuns.logutils.LogUtils;
 
 import org.jsoup.Jsoup;
-import org.jsoup.examples.ListLinks;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -20,8 +19,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.internal.queue.MpscLinkedQueue;
 
 /**
  * 方法都需要在子线程中运行比较耗时

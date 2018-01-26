@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject.entity;
+package com.xjxdemo.tool.test.entity;
 
 import com.base.lib.base.adapter.IHolderType;
 

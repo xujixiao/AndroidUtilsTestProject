@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject;
+package com.xjxdemo.tool.test;
 
 import org.junit.Test;
 

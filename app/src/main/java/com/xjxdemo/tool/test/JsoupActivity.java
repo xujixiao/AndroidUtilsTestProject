@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject;
+package com.xjxdemo.tool.test;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,10 +6,10 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.apkfuns.logutils.LogUtils;
 import com.base.lib.base.SActivity;
-import com.weex.test.androidutilstestproject.constants.PathConstants;
-import com.weex.test.androidutilstestproject.databinding.ActJsoupParseExampleLayoutBinding;
-import com.weex.test.androidutilstestproject.presenter.TestPresenter;
-import com.weex.test.androidutilstestproject.utils.HtmlUtils;
+import com.xjxdemo.tool.test.constants.PathConstants;
+import com.xjxdemo.tool.test.databinding.ActJsoupParseExampleLayoutBinding;
+import com.xjxdemo.tool.test.presenter.TestPresenter;
+import com.xjxdemo.tool.test.utils.HtmlUtils;
 
 import java.util.Map;
 

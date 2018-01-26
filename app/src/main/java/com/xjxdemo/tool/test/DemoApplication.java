@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject;
+package com.xjxdemo.tool.test;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.lib.BaseApplication;

@@ -1,7 +1,7 @@
-package com.weex.test.androidutilstestproject.presenter;
+package com.xjxdemo.tool.test.presenter;
 
 import com.base.lib.base.BasePresenter;
-import com.weex.test.androidutilstestproject.view.IMainView;
+import com.xjxdemo.tool.test.view.IMainView;
 
 /**
  * Copyright (C), 2011-2018 温州贷

@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject;
+package com.xjxdemo.tool.test;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import com.base.lib.base.BaseListActivity;
 import com.base.lib.base.adapter.IHolderType;
 import com.base.lib.databinding.CommonListLayoutBinding;
 import com.base.lib.utils.ArouterUtils;
-import com.weex.test.androidutilstestproject.constants.PathConstants;
-import com.weex.test.androidutilstestproject.databinding.ActivityMainBinding;
-import com.weex.test.androidutilstestproject.entity.TestMainEntity;
-import com.weex.test.androidutilstestproject.presenter.TestPresenter;
+import com.xjxdemo.tool.test.constants.PathConstants;
+import com.xjxdemo.tool.test.databinding.ActivityMainBinding;
+import com.xjxdemo.tool.test.entity.TestMainEntity;
+import com.xjxdemo.tool.test.presenter.TestPresenter;
 
 import java.util.ArrayList;
 
@@ -24,11 +24,15 @@ public class MainActivity extends BaseListActivity<TestPresenter, CommonListLayo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        for (int i = 0; i < 20; i++) {
-            TestMainEntity e = new TestMainEntity();
-            e.text = "xujixiao" + i;
-            mList.add(e);
-        }
+        TestMainEntity e = new TestMainEntity();
+        e.text = "jsoup解析数据测试";
+        mList.add(e);
+        e = new TestMainEntity();
+        e.text = "emoji表情的自定义控件测试";
+        mList.add(e);
+        e = new TestMainEntity();
+        e.text = "constraintlayout测试";
+        mList.add(e);
         mAdapter.refreshData(mList);
 
     }
@@ -55,6 +59,8 @@ public class MainActivity extends BaseListActivity<TestPresenter, CommonListLayo
             ArouterUtils.go(PathConstants.JsoupActivity);
         } else if (position == 1) {
             ArouterUtils.go(PathConstants.EmojiActivity);
+        } else if (position == 2) {
+            ArouterUtils.go(PathConstants.ConstraintLayoutActivity);
         }
     }
 

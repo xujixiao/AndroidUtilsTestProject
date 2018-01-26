@@ -1,4 +1,4 @@
-package com.weex.test.androidutilstestproject.view;
+package com.xjxdemo.tool.test.view;
 
 import com.base.lib.http.IView;
 
